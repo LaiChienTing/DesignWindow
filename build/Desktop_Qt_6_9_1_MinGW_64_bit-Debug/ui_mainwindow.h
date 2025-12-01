@@ -16,6 +16,7 @@
 #include <QtWidgets/QMenu>
 #include <QtWidgets/QMenuBar>
 #include <QtWidgets/QStatusBar>
+#include <QtWidgets/QToolBar>
 #include <QtWidgets/QWidget>
 
 QT_BEGIN_NAMESPACE
@@ -39,6 +40,7 @@ public:
     QMenu *menu;
     QMenu *menu_2;
     QStatusBar *statusbar;
+    QToolBar *toolBar;
 
     void setupUi(QMainWindow *MainWindow)
     {
@@ -72,7 +74,7 @@ public:
         MainWindow->setCentralWidget(centralwidget);
         menubar = new QMenuBar(MainWindow);
         menubar->setObjectName("menubar");
-        menubar->setGeometry(QRect(0, 0, 800, 24));
+        menubar->setGeometry(QRect(0, 0, 800, 21));
         menu = new QMenu(menubar);
         menu->setObjectName("menu");
         menu_2 = new QMenu(menubar);
@@ -81,6 +83,9 @@ public:
         statusbar = new QStatusBar(MainWindow);
         statusbar->setObjectName("statusbar");
         MainWindow->setStatusBar(statusbar);
+        toolBar = new QToolBar(MainWindow);
+        toolBar->setObjectName("toolBar");
+        MainWindow->addToolBar(Qt::ToolBarArea::TopToolBarArea, toolBar);
 
         menubar->addAction(menu->menuAction());
         menubar->addAction(menu_2->menuAction());
@@ -97,6 +102,13 @@ public:
         menu_2->addAction(actionClip);
         menu_2->addAction(actionCopy);
         menu_2->addAction(actionAll);
+        toolBar->addAction(actionNew);
+        toolBar->addAction(actionOpen);
+        toolBar->addAction(actionClose);
+        toolBar->addAction(actionSave);
+        toolBar->addSeparator();
+        toolBar->addAction(actionClip);
+        toolBar->addAction(actionCopy);
 
         retranslateUi(MainWindow);
 
@@ -152,6 +164,7 @@ public:
 #endif // QT_CONFIG(shortcut)
         menu->setTitle(QCoreApplication::translate("MainWindow", "\346\252\224\346\241\210", nullptr));
         menu_2->setTitle(QCoreApplication::translate("MainWindow", "\347\267\250\350\274\257", nullptr));
+        toolBar->setWindowTitle(QCoreApplication::translate("MainWindow", "toolBar", nullptr));
     } // retranslateUi
 
 };
