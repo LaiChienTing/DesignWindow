@@ -1,0 +1,16 @@
+# Build directories
+build/
+build_test/
+*.o
+*.obj
+moc_*.cpp
+ui_*.h
+*.moc
+qrc_*.cpp
+
+# Qt generated files
+Makefile
+.qmake.stash
+
+# CodeQL artifacts
+_codeql_detected_source_root
