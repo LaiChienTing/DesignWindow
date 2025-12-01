@@ -12,3 +12,6 @@ ui_*
 *.o
 Makefile
 .qmake.stash
+
+# CodeQL files
+_codeql_detected_source_root
