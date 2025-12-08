@@ -1,5 +1,9 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
+#include <QFileDialog>
+#include <QFile>
+#include <QTextStream>
+#include <QMessageBox>
 
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
@@ -11,4 +15,40 @@ MainWindow::MainWindow(QWidget *parent)
 MainWindow::~MainWindow()
 {
     delete ui;
+}
+
+void MainWindow::on_actionASave_triggered()
+{
+    // Open a file dialog to get the save file path
+    QString fileName = QFileDialog::getSaveFileName(this,
+                                                     tr("另存新檔"),
+                                                     "",
+                                                     tr("文字檔案 (*.txt);;所有檔案 (*)"));
+    
+    // If user cancelled the dialog, return
+    if (fileName.isEmpty())
+        return;
+    
+    // Create a file object
+    QFile file(fileName);
+    
+    // Try to open the file for writing
+    if (!file.open(QIODevice::WriteOnly | QIODevice::Text)) {
+        QMessageBox::warning(this, tr("無法儲存檔案"),
+                             tr("無法開啟檔案進行寫入:\n%1").arg(file.errorString()));
+        return;
+    }
+    
+    // Create a text stream to write to the file
+    QTextStream out(&file);
+    
+    // Get the text from the textEdit widget and write it to the file
+    out << ui->textEdit->toPlainText();
+    
+    // Close the file
+    file.close();
+    
+    // Show a success message
+    QMessageBox::information(this, tr("儲存成功"),
+                             tr("檔案已成功儲存至:\n%1").arg(fileName));
 }
