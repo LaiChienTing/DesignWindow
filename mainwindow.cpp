@@ -49,17 +49,12 @@ void MainWindow::on_actionOpen_triggered()
     ui->textEdit->setPlainText(content);
     
     // File will be closed automatically
-    QMessageBox::information(this, tr("開啟成功"),
-                             tr("檔案已成功開啟:\n%1").arg(fileName));
 }
 
 void MainWindow::on_actionClose_triggered()
 {
     // Clear the textEdit content
     ui->textEdit->clear();
-    
-    QMessageBox::information(this, tr("關閉檔案"),
-                             tr("檔案已關閉"));
 }
 
 void MainWindow::on_actionASave_triggered()
