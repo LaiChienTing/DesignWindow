@@ -45,10 +45,14 @@ void MainWindow::on_actionASave_triggered()
     // Get the text from the textEdit widget and write it to the file
     out << ui->textEdit->toPlainText();
     
-    // Close the file
-    file.close();
+    // Check for write errors
+    if (out.status() != QTextStream::Ok) {
+        QMessageBox::warning(this, tr("無法儲存檔案"),
+                             tr("寫入檔案時發生錯誤"));
+        return;
+    }
     
-    // Show a success message
+    // Show a success message (file will be closed automatically)
     QMessageBox::information(this, tr("儲存成功"),
                              tr("檔案已成功儲存至:\n%1").arg(fileName));
 }
